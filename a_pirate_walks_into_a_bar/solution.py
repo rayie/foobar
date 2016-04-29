@@ -1,22 +1,17 @@
-def answers(numbers):
+def answer(numbers):
+  #traverse the sequence , from pirate to pirate, track in n the count of iterations, 
+  def t(arr,s,g,n):
+    g = arr[g]
+    if (g==s):
+      return n+1
+    else:
+      n=n+1
+      return t(arr,s,g,n)
 
-    # Create an empty list, to put the pirates as they're met.
-    pirates = []
-    # Start at pirate 0.
-    i = 0
+  #generate list containing the duplicate entry in numbers
+  mylist = [x for x in numbers if numbers.count(x) > 1]
+  if len(mylist)==0:  #there are no duplicate entries, then answer is 0
+    return 0
 
-    # Keep going until the cycle is found.
-    while True:
-
-        # Check the current pirate matches any existing pirates.
-        # As they're added sequentially, any previous pirate means that
-        # there's now a cycle. The length of the cycle is the length of
-        # the list, minus the index of the pirate that was just found.
-        if i in pirates:
-            return len(pirates) - pirates.index(i)
-
-        # Otherwise, append the current pirate.
-        pirates.append(i)
-
-        # Move to the next pirate.
-        i = numbers[i]
+  num = mylist.pop() 
+  return t(numbers,num,num,0)
